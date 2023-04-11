@@ -12,79 +12,83 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-//    @Test
-//    public void testConstructor() {
-//        Person person = new Person(25, "John");
-//        assertNotNull(person);
-//    }
-//
-//    @Test
-//    public void testPersonAge() throws Exception {
-//        Person person = new Person(25, "John");
-//        Field ageField = Person.class.getDeclaredField("age");
-//        ageField.setAccessible(true);
-//        int age = ageField.getInt(person);
-//        assertEquals(25, age);
-//    }
     public class PersonTest {
 
         @Test
-        public void testAgeExists() throws NoSuchFieldException {
-            Field ageField = Person.class.getDeclaredField("age");
-            assertNotNull(ageField);
-            assertTrue(ageField.getType().equals(int.class));
+        public void testAgeExists() throws Exception {
+            try {
+                Field ageField = Person.class.getDeclaredField("age");
+                assertNotNull(ageField);
+                assertTrue(ageField.getType().equals(int.class));
+            } catch (Exception e) {
+                fail("accountNumber not found");
+            }
         }
 
         @Test
-        public void testNameExists() throws NoSuchFieldException {
-            Field nameField = Person.class.getDeclaredField("name");
-            assertNotNull(nameField);
-            assertTrue(nameField.getType().equals(String.class));
+        public void testNameExists() throws Exception {
+            try {
+                Field nameField = Person.class.getDeclaredField("name");
+                assertNotNull(nameField);
+                assertTrue(nameField.getType().equals(String.class));
+            } catch (Exception e) {
+                fail("accountNumber not found");
+            }
         }
 
         @Test
-        public void testConstructorExists() throws NoSuchMethodException {
-            Class<?>[] parameterTypes = {int.class, String.class};
-            Constructor<Person> constructor = Person.class.getDeclaredConstructor(parameterTypes);
-            assertNotNull(constructor);
+        public void testConstructorExists() throws Exception {
+            try {
+                Class<?>[] parameterTypes = {int.class, String.class};
+                Constructor<Person> constructor = Person.class.getDeclaredConstructor(parameterTypes);
+                assertNotNull(constructor);
+            } catch (Exception e) {
+                fail("accountNumber not found");
+            }
         }
 
         @Test
-        public void testConstructorSignature() throws NoSuchMethodException {
-            Class<?>[] parameterTypes = {int.class, String.class};
-            Constructor<Person> constructor = Person.class.getDeclaredConstructor(parameterTypes);
-            assertNotNull(constructor);
-            assertEquals(int.class, constructor.getParameterTypes()[0]);
-            assertEquals(String.class, constructor.getParameterTypes()[1]);
+        public void testConstructorSignature() throws Exception {
+            try {
+                Class<?>[] parameterTypes = {int.class, String.class};
+                Constructor<Person> constructor = Person.class.getDeclaredConstructor(parameterTypes);
+                assertNotNull(constructor);
+                assertEquals(int.class, constructor.getParameterTypes()[0]);
+                assertEquals(String.class, constructor.getParameterTypes()[1]);
+            } catch (Exception e) {
+                fail("accountNumber not found");
+            }
         }
 
     @Test
     public void testConstructor() throws Exception {
-        Class<?> personClass = Class.forName("Person");
+       try {
+            Class<?> personClass = Class.forName("Person");
 
-        // check if constructor with age and name parameters exist
-        Constructor<?> constructor = personClass.getConstructor(int.class, String.class);
+            // check if constructor with age and name parameters exist
+            Constructor<?> constructor = personClass.getConstructor(int.class, String.class);
 
-        // check if age data member exists
-        Field ageField = personClass.getDeclaredField("age");
+            // check if age data member exists
+            Field ageField = personClass.getDeclaredField("age");
 
-        // check if name data member exists
-        Field nameField = personClass.getDeclaredField("name");
+            // check if name data member exists
+            Field nameField = personClass.getDeclaredField("name");
 
-        // create an instance of Person using the constructor
-        Object person = ((Constructor<?>) constructor).newInstance(25, "John Doe");
+            // create an instance of Person using the constructor
+            Object person = ((Constructor<?>) constructor).newInstance(25, "John Doe");
 
-        // check if the age value is set correctly
-        ageField.setAccessible(true);
-        int age = (int) ageField.get(person);
-        assertEquals(25, age);
+            // check if the age value is set correctly
+            ageField.setAccessible(true);
+            int age = (int) ageField.get(person);
+            assertEquals(25, age);
 
-        // check if the name value is set correctly
-        nameField.setAccessible(true);
-        String name = (String) nameField.get(person);
-        assertEquals("John Doe", name);
+            // check if the name value is set correctly
+            nameField.setAccessible(true);
+            String name = (String) nameField.get(person);
+            assertEquals("John Doe", name);
+        } catch (Exception e) {
+            fail("accountNumber not found");
+        }
     }
 
 }
-
